@@ -59,11 +59,11 @@ Este projeto foi construído utilizando as seguintes tecnologias:
 Para executar o projeto localmente e com todas as funcionalidades, siga estes passos:
 
 1. Clone o repositório:
-   ```bash
+   ```
    git clone [https://github.com/SEU-USUARIO/hardmode-gym-landing-page.git](https://github.com/SEU-USUARIO/hardmode-gym-landing-page.git)
    Navegue até a pasta do projeto:
    ```
-
+Navegue até a pasta do projeto:
 Bash cd hardmode-gym-landing-page
 
 ⚙️ Configuração do Ambiente - 
