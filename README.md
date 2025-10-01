@@ -4,7 +4,7 @@
 ![Licença](https://img.shields.io/badge/licença-MIT-blue)
 
 <p align="center">
-  <img src="caminho/para/seu/screenshot.png" alt="Screenshot da Home do Hard Mode Gym" width="800"/>
+  <img src="images/HomePage_Print.png" alt="Screenshot da Home do Hard Mode Gym" width="800"/>
 </p>
 
 > Landing page do sistema de controle de acesso para academias "Hard Mode Gym". Um projeto que une a paixão por tecnologia e musculação, com foco em uma identidade visual forte, direta e sem frescuras.
