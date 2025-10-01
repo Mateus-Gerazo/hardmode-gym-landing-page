@@ -257,19 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  document.querySelectorAll("button").forEach((button) => {
-    if (button.id === "themeToggle") return;
-    button.addEventListener("click", function () {
-      const buttonText = this.textContent.trim();
-      if (
-        buttonText === "ATIVAR HARD MODE" ||
-        buttonText === "LIBERAR O CAOS"
-      ) {
-        toggleHardmode();
-      }
-    });
-  });
-
   // =========================== //
   // LÓGICA DO MODAL DE EMAIL //
   // =========================== //
