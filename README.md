@@ -64,7 +64,7 @@ Para executar o projeto localmente e com todas as funcionalidades, siga estes pa
    Navegue até a pasta do projeto:
    ```
 Navegue até a pasta do projeto:
-Bash cd hardmode-gym-landing-page
+cd hardmode-gym-landing-page
 
 ⚙️ Configuração do Ambiente - 
 Por motivos de segurança, as chaves da API do EmailJS não estão incluídas neste repositório. Para habilitar a funcionalidade de envio de e-mail, você precisará criar sua própria configuração:
