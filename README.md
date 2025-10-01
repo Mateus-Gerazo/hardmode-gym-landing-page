@@ -79,14 +79,6 @@ Após configurar, abra o arquivo index.html no seu navegador de preferência.
 
 Dica: Para uma melhor experiência de desenvolvimento, recomendo usar a extensão "Live Server" no Visual Studio Code, que atualiza a página automaticamente a cada alteração.
 
-💪 Equipe
-Este projeto foi forjado pela seguinte equipe:
-
-Membro Função
-Ricardo Lourenção - Desenvolvedor Back-end (C#)
-Mateus Gerazo - Desenvolvedor Front-end (Web)
-João Pedro Costa - Analista de Operações
-Murilo Fadini - Design de Marca & Visual
 
 📜 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
