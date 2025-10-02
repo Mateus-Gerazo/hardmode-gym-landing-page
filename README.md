@@ -82,5 +82,5 @@ Isso significa que, se você clonar ou baixar este projeto para executá-lo em o
 4.  No painel do EmailJS, na seção de segurança do seu serviço, adicione o seu domínio (ex: `localhost`, ou a URL do seu site) à **"Allowlist"** (Lista de Permissões) para que as chaves funcionem.
 
 
-📜 Licença
+📜 Licença -
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
