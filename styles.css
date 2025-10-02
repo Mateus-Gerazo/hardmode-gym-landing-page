@@ -2385,12 +2385,12 @@ h6 {
 
 /* Estilo para o texto de aviso do formulário */
 .disclaimer-text {
-  font-size: 15px; /* <<< Aumentamos um pouco o tamanho */
-  color: var(--text-white); /* <<< Mudamos para branco para maior destaque */
+  font-size: 15px;
+  color: var(--text-white);
   text-align: center;
   margin: -8px 0 24px 0;
   line-height: 1.5;
-  opacity: 0.9; /* <<< Deixamos um pouco mais sólido */
+  opacity: 0.9;
 }
 
 /* Estilos para o container do formulário e mensagem de sucesso */
@@ -2400,13 +2400,9 @@ h6 {
   flex-direction: column;
 }
 
-/* Adicione no final do seu arquivo styles.css */
-
 .hidden {
   display: none;
 }
-
-/* Adicione no final do arquivo ou junto com os outros estilos de .nav-link-new */
 
 .nav-link-new.active {
   color: var(--primary-red);
@@ -2414,4 +2410,10 @@ h6 {
 
 .nav-link-new.active::after {
   transform: translateX(-50%) scaleX(1);
+}
+
+.hardmode-active .theme-toggle-btn {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
 }
