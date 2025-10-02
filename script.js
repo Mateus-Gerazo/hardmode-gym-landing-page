@@ -120,6 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", function () {
+      if (hardmodeActive) return; // <-- ADICIONE ESTA LINHA AQUI
+
       currentTheme = currentTheme === "dark" ? "light" : "dark";
       applyTheme();
       this.style.transform = "scale(0.9)";
