@@ -562,7 +562,7 @@ h6 {
   justify-content: start;
   width: 100%;
   max-width: 350px;
-  height: 300px;
+  height: 260px;
   background: var(--feature-card-bg);
   border: 1px solid var(--border-gray);
   padding: 30px 20px;
@@ -2381,7 +2381,7 @@ h6 {
 /* Estilo para o texto de aviso do formulário */
 .disclaimer-text {
   font-size: 15px;
-  color: var(--text-white);
+  color: #cccccc;
   text-align: center;
   margin: -8px 0 24px 0;
   line-height: 1.5;
