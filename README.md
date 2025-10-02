@@ -66,18 +66,20 @@ Para executar o projeto localmente e com todas as funcionalidades, siga estes pa
 Navegue até a pasta do projeto:
 cd hardmode-gym-landing-page
 
-⚙️ Configuração do Ambiente - 
-Por motivos de segurança, as chaves da API do EmailJS não estão incluídas neste repositório. Para habilitar a funcionalidade de envio de e-mail, você precisará criar sua própria configuração:
+### ⚙️ Configuração do Ambiente
 
-Na raiz do projeto, localize o arquivo config.example.js.
+**Aviso Importante sobre as Chaves da API:**
 
-Crie uma cópia deste arquivo e renomeie-a para config.js.
+Este repositório inclui as chaves de API do [EmailJS](https://www.emailjs.com/) para fins de demonstração da funcionalidade no site principal. No entanto, por segurança, elas estão configuradas no painel do EmailJS para funcionar **exclusivamente no domínio de produção original**.
 
-Abra o config.js e insira suas chaves pessoais do EmailJS nos locais indicados. O arquivo config.js é intencionalmente ignorado pelo Git (.gitignore) para proteger suas chaves.
+Isso significa que, se você clonar ou baixar este projeto para executá-lo em outro ambiente (localmente ou em outra hospedagem), o formulário de contato falhará.
 
-Após configurar, abra o arquivo index.html no seu navegador de preferência.
+**Para habilitar o envio de e-mail na sua própria versão do projeto, siga os passos:**
 
-Dica: Para uma melhor experiência de desenvolvimento, recomendo usar a extensão "Live Server" no Visual Studio Code, que atualiza a página automaticamente a cada alteração.
+1.  Crie uma conta gratuita no **[EmailJS](https://www.emailjs.com/)**.
+2.  Configure seu próprio serviço de e-mail (Service) e crie seus próprios modelos (Templates).
+3.  Substitua as chaves existentes no arquivo `config.js` (ou diretamente no `script.js`, se for o caso) pelas **suas próprias chaves** (Public Key, Service ID, Template IDs).
+4.  No painel do EmailJS, na seção de segurança do seu serviço, adicione o seu domínio (ex: `localhost`, ou a URL do seu site) à **"Allowlist"** (Lista de Permissões) para que as chaves funcionem.
 
 
 📜 Licença
