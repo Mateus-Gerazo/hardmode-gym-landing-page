@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ctaTitle:
         'VOCÊ ESTÁ PRONTO OU <span class="cta-highlight">VAI CORRER</span>?',
       ctaDesc: "ENTRE PARA A ELITE. MEDÍOCRES NÃO PASSAM DA PORTA.",
-      ctaButton: "LIBERAR O CAOS",
+      ctaButton: "VOLTAR PARA SAFEZONE",
       institutionalText:
         "De um simples teste de programação para um sistema que separa fracos de guerreiros.<br><strong>Criado para donos de academias que não aceitam moleza, nosso software é mais que uma ferramenta — é um campo de guerra digital.</strong>",
       navHome: "Arena",
