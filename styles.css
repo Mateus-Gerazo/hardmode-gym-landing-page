@@ -1602,13 +1602,27 @@ h6 {
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   margin-top: 1rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem; /* Espaçamento AUMENTADO entre o ícone e o texto */
 }
+
+.card-button-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.card-button-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
 .card-button:hover {
   background-color: var(--hover-red);
   border-color: var(--hover-red);
@@ -2411,4 +2425,79 @@ h6 {
   opacity: 0.4;
   cursor: not-allowed;
   transform: none !important;
+}
+
+/* SUBSTITUA O BLOCO DE ESTILOS DE PREÇO ANTERIOR POR ESTE */
+
+.plan-price {
+  text-align: center;
+  margin: auto 0;
+  padding: 1rem 0;
+  display: flex; /* Alterado para alinhar tudo na mesma linha */
+  justify-content: center;
+  align-items: baseline; /* Alinha os textos pela base */
+  gap: 0.5rem; /* Espaçamento entre os elementos */
+}
+
+.price-currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-gray);
+}
+
+.price-value {
+  font-family: "Bebas Neue", cursive;
+  font-size: 3.8rem;
+  font-weight: 900;
+  color: var(--text-white);
+  line-height: 1;
+}
+
+.price-term {
+  font-size: 1.5rem; /* Tamanho aumentado para alinhar melhor */
+  font-weight: 600;
+  color: var(--text-gray);
+  letter-spacing: 0;
+  text-transform: none; /* Remove o uppercase */
+  margin-top: 0; /* Remove a margem antiga */
+}
+
+/* Ajuste no .back-content para usar Flexbox e preencher o espaço */
+.back-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-newsletter-cta {
+  text-align: center;
+  max-width: 600px; /* Aumentamos um pouco a largura máxima */
+  margin: 4rem auto; /* Aumentamos o espaçamento vertical */
+  padding: 2.5rem; /* Espaçamento interno para o conteúdo respirar */
+  background: var(--feature-card-bg); /* Mesmo fundo dos cards de features */
+  border: 2px solid var(--border-gray); /* Mesma borda dos outros cards */
+  border-radius: 8px; /* Borda arredondada suave */
+  transition: all 0.3s ease; /* Transição suave para o efeito de hover */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 15px) 0,
+    100% 15px,
+    100% 100%,
+    15px 100%,
+    0 calc(100% - 15px)
+  ); /* O mesmo corte angular característico do site */
+}
+
+/* Efeito de hover para dar interatividade */
+.contact-newsletter-cta:hover {
+  transform: translateY(-5px); /* Efeito de 'flutuar' */
+  border-color: var(--primary-red); /* Borda fica vermelha */
+  box-shadow: 0 10px 30px rgba(200, 0, 0, 0.2); /* Sombra vermelha sutil */
+}
+
+.newsletter-cta-text {
+  color: var(--text-gray);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
