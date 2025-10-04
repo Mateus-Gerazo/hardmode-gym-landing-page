@@ -1,465 +1,597 @@
-// Substitua "SUA_PUBLIC_KEY" pela sua chave encontrada na aba "Account" do EmailJS
-emailjs.init({
-  publicKey: "tI2jFr5_VX_OVNDkc",
-});
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-// O invólucro que garante que o HTML foi carregado
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("🏋️ HARD MODE GYM - Sistema Carregado");
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HARD MODE GYM - Sistema de Controle de Acesso</title>
 
-  // =========================== //
-  // DECLARAÇÃO DE VARIÁVEIS
-  // =========================== //
-  const themeToggleBtn = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
-  const navLinks = document.querySelectorAll(".nav-link, .nav-link-new");
-  const body = document.body;
-  const mainHeader = document.getElementById("main-header");
+    <link rel="icon" type="image/png" href="images/H_MAIUSCULO_resized.png">
 
-  let currentTheme = "dark";
-  let hardmodeActive = false;
-  let scrollTimeout;
+    <meta name="description"
+        content="Sistema hardcore de controle de entrada para academias e ginásios. Sem frescura, só resultados.">
+    <meta name="author" content="Hard Mode Gym">
 
-  // Seletores do Modal de Email
-  const emailModal = document.getElementById("emailModal");
-  const comeceAgoraBtn = document.getElementById("comeceAgoraBtn");
-  const closeEmailModal = document.getElementById("closeEmailModal");
-  const emailForm = document.getElementById("emailForm");
-  const emailInput = document.getElementById("emailInput");
-  const emailError = document.getElementById("emailError");
-  const emailModalBody = document.getElementById("emailModalBody");
-  const emailSubmitBtn = emailForm
-    ? emailForm.querySelector(".email-submit-btn")
-    : null;
+    <meta property="og:title" content="HARD MODE GYM - Sistema de Controle de Acesso">
+    <meta property="og:description"
+        content="Sistema hardcore de controle de entrada para academias e ginásios. Sem frescura, só resultados.">
+    <meta property="og:type" content="website">
 
-  const formContainer = emailModal?.querySelector(".form-container");
-  const successMessage = emailModal?.querySelector(".success-message");
-  const closeSuccessBtn = emailModal?.querySelector("#closeSuccessBtn");
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
 
-  // Seletores dos Cards
-  const cards = document.querySelectorAll(".interactive-cards-container .card");
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-  const sunIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
-  const moonIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+<body class="dark-mode">
+    <header id="main-header" class="main-header">
+        <div class="header-content-new">
+            <div class="logo-container-new">
+                <img src="images/HGM_INLINE.png" alt="HARD MODE GYM Logo" class="logo-completa" />
+                <img src="images/H_MAIUSCULO_resized.png" alt="H Logo" class="logo-h" />
+            </div>
+            <nav class="main-nav-new">
+                <ul class="nav-list-new">
+                    <li><a href="#" class="nav-link-new" data-section="home">Início</a></li>
+                    <li><a href="#" class="nav-link-new" data-section="sobre">Sobre</a></li>
+                    <li><a href="#" class="nav-link-new" data-section="versoes">Versões</a></li>
+                    <li><a href="#" class="nav-link-new" data-section="contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle-container-new">
+                <button class="theme-toggle-btn" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  // =========================== //
-  // FUNÇÕES DA APLICAÇÃO
-  // =========================== //
+    <main class="main-content-new">
+        <div id="home" class="page-section active">
+            <section class="hero-section">
+                <div class="hero-content fade-in-up">
+                    <h2 class="hero-title">
+                        TREINO<br>
+                        <span class="hero-highlight">HARDCORE</span>
+                    </h2>
+                    <p class="hero-description">
+                        Sistema de controle de entrada para academias que levam o fitness a sério.<br>
+                        <strong class="hero-strong">SEM FRESCURA. SEM LIMITES.</strong>
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary open-newsletter-modal">COMECE AGORA</button>
+                        <button class="btn-secondary" id="vejaOsPlanosBtn">VEJA OS PLANOS</button>
+                    </div>
+                </div>
+            </section>
+            <div class="section-separator"></div>
+            <section class="features-section">
+                <div class="features-container">
+                    <h3 class="features-title fade-in-up">
+                        CONTROLE <span class="features-highlight">TOTAL</span>
+                    </h3>
+                    <div class="features-grid">
+                        <div class="feature-card fade-in-up" data-delay="100">
+                            <div class="feature-icon">⚡</div>
+                            <h4 class="feature-title">ACESSO RÁPIDO</h4>
+                            <p class="feature-description">Entrada e saída de alunos em segundos. Sem complicação, só
+                                resultado.</p>
+                        </div>
+                        <div class="feature-card fade-in-up" data-delay="200">
+                            <div class="feature-icon">📊</div>
+                            <h4 class="feature-title">RELATÓRIOS BRUTAIS</h4>
+                            <p class="feature-description">Dados precisos sobre frequência, horários e performance da
+                                sua academia.</p>
+                        </div>
+                        <div class="feature-card fade-in-up" data-delay="300">
+                            <div class="feature-icon">🔒</div>
+                            <h4 class="feature-title">SEGURANÇA MÁXIMA</h4>
+                            <p class="feature-description">Controle total de quem entra e sai. Sua academia, suas
+                                regras.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="section-separator"></div>
+            <div class="about-cta">
+                <p class="about-cta-text">
+                    Criado para donos de academias que querem controle, disciplina e segurança.<br>
+                    <strong>Sem frescura. Sem enrolação. Apenas resultado.</strong>
+                </p>
+            </div>
+            <div class="section-separator"></div>
+            <section class="cta-section">
+                <div class="cta-container fade-in-up">
+                    <h3 class="cta-title">
+                        PRONTO PARA O <span class="cta-highlight">HARD MODE</span>?
+                    </h3>
+                    <p class="cta-description">
+                        Junte-se às academias que não aceitam mediocridade.
+                    </p>
+                    <button class="cta-button" id="hardModeBtn">ATIVAR HARD MODE</button>
+                </div>
+            </section>
+        </div>
 
-  // FUNÇÃO showSection CORRIGIDA E SIMPLIFICADA
-  function showSection(targetId) {
-    console.log("🔄 Navegando para seção:", targetId);
+        <div id="sobre" class="page-section hidden">
+            <section class="about-section">
+                <div class="about-container">
+                    <h2 class="about-title">
+                        CONHEÇA O <span class="about-highlight">HARD MODE GYM</span>
+                    </h2>
+                    <div class="about-content">
+                        <div class="about-story">
+                            <h3 class="about-subtitle">NOSSA HISTÓRIA</h3>
+                            <p class="about-text">
+                                A faísca do HARD MODE GYM surgiu de um desafio acadêmico sobre sistemas de segurança.
+                                Cansados da teoria, mergulhamos em um ambiente onde a disciplina é lei e o controle é
+                                tudo: o chão da academia.
+                            </p>
+                            <p class="about-text">
+                                Este sistema não é apenas um TCC; é a nossa obsessão. Forjado com paixão por tecnologia
+                                e a experiência de quem vive o treino pesado, ele foi criado para donos de academias
+                                que, como nós, não aceitam nada menos que o controle absoluto.
+                            </p>
+                        </div>
+                        <div class="about-mission">
+                            <h3 class="about-subtitle">NOSSA MISSÃO: CONTROLE ABSOLUTO</h3>
+                            <p class="about-text">
+                                Nós não criamos "mais um" sistema de gestão. Nós forjamos uma ferramenta de comando. O
+                                HardMode Gym entrega controle total sobre cada aspecto do seu negócio: da gestão
+                                completa de alunos e instrutores ao controle de empresas terceirizadas que operam no seu
+                                espaço.
+                            </p>
+                            <h3 class="about-subtitle">NOSSO DIFERencial: SEM FRESCURA.</h3>
+                            <p class="about-text">
+                                Enquanto outros softwares oferecem funcionalidades infladas e complexas, nosso foco é um
+                                só: poder e eficiência. Cada recurso foi desenhado para ser direto, robusto e sem
+                                enrolação. É a ferramenta definitiva para donos de academia que valorizam resultados,
+                                não desculpas.
+                            </p>
+                        </div>
+                        <div class="about-timeline">
+                            <h3 class="about-subtitle">NOSSA JORNADA</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">💡</div>
+                                    <div class="timeline-content">
+                                        <h4>IDEIA INICIAL</h4>
+                                        <p>Interesse em sistemas de segurança durante atividade acadêmica</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🏋️</div>
+                                    <div class="timeline-content">
+                                        <h4>FOCO EM ACADEMIAS</h4>
+                                        <p>Descoberta da afinidade com o universo fitness e definição do nicho</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🔧</div>
+                                    <div class="timeline-content">
+                                        <h4>PRIMEIROS PROTÓTIPOS</h4>
+                                        <p>Desenvolvimento das funcionalidades core do sistema</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🎓</div>
+                                    <div class="timeline-content">
+                                        <h4>PROJETO TCC</h4>
+                                        <p>Refinamento e apresentação como trabalho de conclusão</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🚀</div>
+                                    <div class="timeline-content">
+                                        <h4>PRONTO PARA O MERCADO</h4>
+                                        <p>Sistema finalizado e preparado para comercialização</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-cta">
+                            <p class="about-cta-text">
+                                <strong>Criado por quem entende a rotina de quem vive o chão da academia.</strong><br>
+                                FORÇA. DISCIPLINA. CONTROLE. É disso que se trata.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info-cards-section">
+                        <h3 class="info-cards-title">RECURSOS DO SISTEMA</h3>
+                        <div class="info-card reveal-on-scroll">
+                            <div class="info-card-image">
+                                <img src="images/dashboard.jpg" alt="Dashboard do sistema">
+                                <button class="fullscreen-btn view-image-btn" data-modal="modal-card1"
+                                    aria-controls="modal-card1" type="button">
+                                    <span>🔍</span> Ver imagem
+                                </button>
+                            </div>
+                            <div class="info-card-content">
+                                <h4 class="info-card-title">DASHBOARD INTUITIVO</h4>
+                                <p class="info-card-text">Não apenas dados, mas inteligência estratégica. Saiba
+                                    instantaneamente o perfil demográfico dos seus membros, de aniversariantes do mês a
+                                    quantos alunos estão ativos ou inativos. Filtre, analise e entenda o pulso da sua
+                                    academia. Conhecimento é poder, e aqui, ele está na sua mão.</p>
+                            </div>
+                        </div>
+                        <div class="info-card info-card-reverse reveal-on-scroll">
+                            <div class="info-card-content">
+                                <h4 class="info-card-title">GESTÃO DE ALUNOS</h4>
+                                <p class="info-card-text">Chega de planilhas e papéis. Cadastre seus alunos em segundos
+                                    com um sistema completo. Armazene dados, planos, pagamentos e histórico de acesso em
+                                    um único lugar seguro. Cada membro, cada detalhe, sob seu comando.</p>
+                            </div>
+                            <div class="info-card-image">
+                                <img src="images/cadastro_pessoas.jpg" alt="Sistema de gestão de membros">
+                                <button class="fullscreen-btn view-image-btn" data-modal="modal-card2"
+                                    aria-controls="modal-card2" type="button">
+                                    <span>🔍</span> Ver imagem
+                                </button>
+                            </div>
+                        </div>
+                        <div class="info-card reveal-on-scroll">
+                            <div class="info-card-image">
+                                <img src="images/cadastro_professores.jpg" alt="Sistema de gestão de instrutores">
+                                <button class="fullscreen-btn view-image-btn" data-modal="modal-card3"
+                                    aria-controls="modal-card3" type="button">
+                                    <span>🔍</span> Ver imagem
+                                </button>
+                            </div>
+                            <div class="info-card-content">
+                                <h4 class="info-card-title">GESTÃO DE PROFESSORES</h4>
+                                <p class="info-card-text">Sua equipe é a linha de frente. Gerencie seus instrutores com
+                                    a mesma precisão que gerencia seus alunos. Cadastre perfis, horários, especialidades
+                                    e controle o acesso de cada um. Tenha um comando centralizado sobre quem treina e
+                                    quem ensina.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-    // Remove a classe 'active' de todos os links do menu
-    navLinks.forEach((link) => link.classList.remove("active"));
+        <div id="modal-card1" class="fullscreen-modal">
+            <div class="fullscreen-content">
+                <img src="images/dashboard.jpg" alt="Imagem do card 1">
+                <button class="close-fullscreen modal-close" type="button" aria-label="Fechar">✕</button>
+            </div>
+        </div>
+        <div id="modal-card2" class="fullscreen-modal">
+            <div class="fullscreen-content">
+                <img src="images/cadastro_pessoas.jpg" alt="Imagem do card 2">
+                <button class="close-fullscreen modal-close" type="button" aria-label="Fechar">✕</button>
+            </div>
+        </div>
+        <div id="modal-card3" class="fullscreen-modal">
+            <div class="fullscreen-content">
+                <img src="images/cadastro_professores.jpg" alt="Imagem do card 3">
+                <button class="close-fullscreen modal-close" type="button" aria-label="Fechar">✕</button>
+            </div>
+        </div>
 
-    // Esconde todas as seções da página
-    document.querySelectorAll(".page-section").forEach((section) => {
-      section.classList.remove("active");
-      section.classList.add("hidden");
-    });
+        <div id="emailModal" class="email-modal">
+            <div class="email-modal-content">
+                <div class="email-modal-header">
+                    <h3>COMECE SUA JORNADA</h3>
+                    <button class="email-modal-close" id="closeEmailModal" type="button" aria-label="Fechar">✕</button>
+                </div>
+                <div class="email-modal-body" id="emailModalBody">
+                    <div class="success-message" style="display: none;">
+                        <span>✅</span>
+                        <span>Inscrição confirmada! Fique de olho no seu email.</span>
+                        <button type="button" class="email-submit-btn" id="closeSuccessBtn">FECHAR</button>
+                    </div>
+                    <div class="form-container">
+                        <p class="email-modal-description">Insira seu email para receber mais informações sobre o HARD
+                            MODE GYM</p>
+                        <form id="emailForm" class="email-form">
+                            <div class="input-group">
+                                <input type="email" id="emailInput" placeholder="seu@email.com" class="email-input"
+                                    required>
+                            </div>
+                            <div id="emailError" class="email-error"></div>
+                            <p class="disclaimer-text">Ao confirmar, você concorda em receber nossos emails com
+                                atualizações e promoções.</p>
+                            <button type="submit" class="email-submit-btn">CONFIRMAR</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-      // Mostra a seção de destino
-      targetSection.classList.remove("hidden");
-      targetSection.classList.add("active");
+        <div id="versoes" class="page-section hidden">
+            <section class="versions-section">
+                <div class="versions-container">
+                    <h2 class="versions-title">
+                        ESCOLHA SUA <span class="versions-highlight">VERSÃO</span>
+                    </h2>
+                    <p class="versions-description">
+                        O HARD MODE GYM é oferecido em versões específicas, de acordo com a estrutura do seu
+                        estabelecimento.
+                        <strong>Sem planos mensais, sem burocracia — uma única aquisição para controle total.</strong>
+                    </p>
+                    <div class="interactive-cards-container">
+                        <div class="card available">
+                            <div class="content">
+                                <div class="front">
+                                    <div class="front-content">
+                                        <span class="status-badge available">DISPONÍVEL</span>
+                                        <h3 class="plan-name">PLANO BÁSICO</h3>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="back-content">
+                                        <div>
+                                            <h3>PLANO BÁSICO</h3>
+                                            <p>A porta de entrada para a automação total com tecnologia RFID.</p>
+                                            <ul class="features-list">
+                                                <li><span class="symbol check">✔</span> Software de Gestão</li>
+                                                <li><span class="symbol check">✔</span> Leitor e Cartões RFID</li>
+                                                <li><span class="symbol cross">✖</span> Biometria Digital</li>
+                                                <li><span class="symbol cross">✖</span> Biometria Facial</li>
+                                            </ul>
+                                        </div>
 
-      // Adiciona a classe 'active' APENAS ao link do menu correspondente
-      const activeNavLink = document.querySelector(
-        `.nav-link-new[data-section="${targetId}"]`
-      );
-      if (activeNavLink) {
-        activeNavLink.classList.add("active");
-      }
+                                        <div class="plan-price">
+                                            <span class="price-currency">R$</span>
+                                            <span class="price-value">129</span>
+                                            <span class="price-term">/mês</span>
+                                        </div>
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      console.warn("Seção não encontrada:", targetId);
-    }
-  }
+                                        <a href="https://wa.me/5514991169657?text=Olá! Tenho interesse no Plano Básico (assinatura mensal) do HARD MODE GYM."
+                                            target="_blank" class="card-button">
+                                            <span class="card-button-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                            FALAR COM UM CONSULTOR
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card unavailable">
+                            <div class="content">
+                                <div class="front">
+                                    <div class="front-content">
+                                        <span class="status-badge unavailable">EM BREVE</span>
+                                        <h3 class="plan-name">PLANO SILVER</h3>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="back-content">
+                                        <div>
+                                            <h3>PLANO SILVER</h3>
+                                            <p>Segurança e modernidade com o poder da Biometria Digital.</p>
+                                            <ul class="features-list">
+                                                <li><span class="symbol check">✔</span> Software de Gestão</li>
+                                                <li><span class="symbol check">✔</span> Leitor de Biometria Digital</li>
+                                                <li><span class="symbol plus">+</span> RFID (Adicional)</li>
+                                                <li><span class="symbol cross">✖</span> Biometria Facial</li>
+                                            </ul>
+                                        </div>
+                                        <div class="plan-price">
+                                            <span class="price-currency">R$</span>
+                                            <span class="price-value">199</span>
+                                            <span class="price-term">/mês</span>
+                                        </div>
+                                        <div class="card-button disabled">
+                                            <span class="symbol pending">⧖</span> EM DESENVOLVIMENTO
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card premium unavailable">
+                            <div class="content">
+                                <div class="front">
+                                    <div class="front-content">
+                                        <span class="status-badge unavailable">EM BREVE</span>
+                                        <h3 class="plan-name">PLANO PREMIUM</h3>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="back-content">
+                                        <div>
+                                            <h3>PLANO PREMIUM</h3>
+                                            <p>A experiência definitiva com a tecnologia de Biometria Facial.</p>
+                                            <ul class="features-list">
+                                                <li><span class="symbol check">✔</span> Software de Gestão Avançado</li>
+                                                <li><span class="symbol check">✔</span> Leitor de Biometria Facial</li>
+                                                <li><span class="symbol plus">+</span> Biometria Digital (Adicional)
+                                                </li>
+                                                <li><span class="symbol plus">+</span> RFID (Adicional)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="plan-price">
+                                            <span class="price-currency">R$</span>
+                                            <span class="price-value">299</span>
+                                            <span class="price-term">/mês</span>
+                                        </div>
+                                        <div class="card-button disabled">
+                                            <span class="symbol pending">⧖</span> EM DESENVOLVIMENTO
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-cta">
+                        <p class="about-cta-text">
+                            <strong>Todas as versões incluem suporte técnico direto com os desenvolvedores.</strong><br>
+                            Em caso de bugs ou problemas, atualizações serão entregues remotamente via patch.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-  // =========================== //
-  // FUNCIONALIDADE DO SCROLL HEADER
-  // =========================== //
+        <div id="contato" class="page-section hidden">
+            <section class="contact-section">
+                <div class="contact-container">
+                    <h2 class="contact-title">
+                        FALE COM O <span class="contact-highlight">HARD MODE GYM</span>
+                    </h2>
+                    <p class="contact-intro">
+                        Se você tem dúvidas, quer adquirir o sistema ou só quer conversar com a equipe por curiosidade,
+                        estamos à disposição.
+                    </p>
+                    <div class="contact-main-button">
+                        <a href="https://wa.me/85973053832" target="_blank" class="whatsapp-main-button">
+                            <span class="whatsapp-icon-main">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                        fill="currentColor" />
+                                </svg>
+                            </span>
+                            FALAR COM A EQUIPE
+                        </a>
+                    </div>
+                    <div class="contact-email">
+                        <p class="email-text">
+                            Ou, se preferir, envie um e-mail para:<br>
+                            <span class="email-address">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    style="vertical-align: middle; margin-right: 8px;">
+                                    <path
+                                        d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+                                        stroke="#c80000" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M22 6L12 13L2 6" stroke="#c80000" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                hardmodegym@gmail.com
+                            </span>
+                        </p>
+                    </div>
+                    <div class="contact-separator"></div>
+                    <div class="contact-newsletter-cta">
+                        <p class="newsletter-cta-text">
+                            Fique por dentro das nossas novidades, promoções e futuras atualizações do sistema.
+                        </p>
+                        <button class="btn-primary open-newsletter-modal">RECEBER ATUALIZAÇÕES</button>
+                    </div>
+                    <div class="contact-separator"></div>
+                    <div class="team-section">
+                        <h3 class="team-title">
+                            CONHEÇA A <span class="team-highlight">EQUIPE</span> POR TRÁS DO PROJETO
+                        </h3>
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">
+                                        <img src="images/Ricardo_cracha.jpg" alt="Foto de Ricardo Lourenção">
+                                    </div>
+                                </div>
+                                <h4 class="team-name">RICARDO</h4>
+                                <p class="team-role">Desenvolvedor Back-end (C#)</p>
+                                <p class="team-description">Responsável pela lógica de funcionamento do sistema e
+                                    integração com o banco.</p>
+                                <a href="https://wa.me/85973053832" target="_blank" class="team-whatsapp-button">
+                                    <span class="whatsapp-icon-team"><svg width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                                fill="currentColor" />
+                                        </svg></span>
+                                    ENTRAR EM CONTATO
+                                </a>
+                            </div>
+                            <div class="team-card">
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">
+                                        <img src="images/Mateus_Couro.jpg" alt="Foto de Mateus Gerazo">
+                                    </div>
+                                </div>
+                                <h4 class="team-name">MATEUS</h4>
+                                <p class="team-role">Desenvolvedor Front-end (Web)</p>
+                                <p class="team-description">Responsável pela construção visual do site e experiência do
+                                    usuário.</p>
+                                <a href="https://wa.me/85973053832" target="_blank" class="team-whatsapp-button">
+                                    <span class="whatsapp-icon-team"><svg width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                                fill="currentColor" />
+                                        </svg></span>
+                                    ENTRAR EM CONTATO
+                                </a>
+                            </div>
+                            <div class="team-card">
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">
+                                        <img src="images/perfil_joao.png" alt="Foto de João Pedro Costa">
+                                    </div>
+                                </div>
+                                <h4 class="team-name">JOÃO PEDRO</h4>
+                                <p class="team-role">Analista de Operações da Equipe</p>
+                                <p class="team-description">Responsável por garantir a eficiência e a organização das
+                                    rotinas do time.</p>
+                                <a href="https://wa.me/85973053832" target="_blank" class="team-whatsapp-button">
+                                    <span class="whatsapp-icon-team"><svg width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                                fill="currentColor" />
+                                        </svg></span>
+                                    ENTRAR EM CONTATO
+                                </a>
+                            </div>
+                            <div class="team-card">
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">
+                                        <img src="images/perfil_fadini.png" alt="Foto de Murilo Fadini">
+                                    </div>
+                                </div>
+                                <h4 class="team-name">MURILO</h4>
+                                <p class="team-role">Design de Marca & Visual</p>
+                                <p class="team-description">Responsável pela identidade visual, logotipo, tipografia e
+                                    estilo da marca.</p>
+                                <a href="https://wa.me/85973053832" target="_blank" class="team-whatsapp-button">
+                                    <span class="whatsapp-icon-team"><svg width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"
+                                                fill="currentColor" />
+                                        </svg></span>
+                                    ENTRAR EM CONTATO
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-  function handleHeaderScroll() {
-    if (!mainHeader) return;
-    const scrollPercent = window.scrollY / window.innerHeight;
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2025 HARD MODE GYM - Sistema de Controle de Acesso
+            </p>
+            <p class="footer-slogan">
+                FORÇA. DISCIPLINA. RESULTADOS.
+            </p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    if (scrollPercent > 0.05) {
-      if (!mainHeader.classList.contains("stage-2")) {
-        mainHeader.classList.remove("stage-1");
-        mainHeader.classList.add("stage-2");
-        console.log("🔄 Header: Estágio 2 Ativado (Logo H)");
-      }
-    } else {
-      if (!mainHeader.classList.contains("stage-1")) {
-        mainHeader.classList.remove("stage-2");
-        mainHeader.classList.add("stage-1");
-        console.log("🔄 Header: Estágio 1 Ativado (Logo Completa)");
-      }
-    }
-  }
+    <script src="script.js"></script>
+</body>
 
-  window.addEventListener("scroll", () => {
-    if (scrollTimeout) {
-      clearTimeout(scrollTimeout);
-    }
-    scrollTimeout = setTimeout(handleHeaderScroll, 10);
-  });
-
-  if (mainHeader) {
-    mainHeader.classList.add("stage-1");
-    handleHeaderScroll();
-  }
-
-  // =========================== //
-  // FUNCIONALIDADE DE TEMA //
-  // =========================== //
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", function () {
-      if (hardmodeActive) return; // <-- ADICIONE ESTA LINHA AQUI
-
-      currentTheme = currentTheme === "dark" ? "light" : "dark";
-      applyTheme();
-      this.style.transform = "scale(0.9)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-      localStorage.setItem("hardModeGymTheme", currentTheme);
-    });
-  }
-
-  function applyTheme() {
-    body.classList.remove("dark-mode", "light-mode");
-    body.classList.add(currentTheme === "light" ? "light-mode" : "dark-mode");
-    themeIcon.innerHTML = currentTheme === "dark" ? sunIconSVG : moonIconSVG;
-    applyThemeContent();
-  }
-
-  function toggleHardmode() {
-    hardmodeActive = !hardmodeActive;
-    body.classList.toggle("hardmode-active", hardmodeActive);
-    applyThemeContent();
-    localStorage.setItem("hardModeActive", hardmodeActive.toString());
-  }
-
-  function applyThemeContent() {
-    const elements = {
-      heroTitle: document.querySelector(".hero-title"),
-      heroDescription: document.querySelector(".hero-description"),
-      comeceAgoraBtn: document.getElementById("comeceAgoraBtn"),
-      vejaOsPlanosBtn: document.getElementById("vejaOsPlanosBtn"),
-      featuresTitle: document.querySelector(".features-title"),
-      ctaTitle: document.querySelector(".cta-title"),
-      ctaDesc: document.querySelector(".cta-description"),
-      ctaButton: document.querySelector(".cta-button"),
-      institutionalText: document.querySelector("#home .about-cta-text"),
-      navHome: document.querySelector('.nav-link-new[data-section="home"]'),
-      navSobre: document.querySelector('.nav-link-new[data-section="sobre"]'),
-      navVersoes: document.querySelector(
-        '.nav-link-new[data-section="versoes"]'
-      ),
-      navContato: document.querySelector(
-        '.nav-link-new[data-section="contato"]'
-      ),
-      aboutTitle: document.querySelector(".about-title"),
-      versionsTitle: document.querySelector(".versions-title"),
-      contactTitle: document.querySelector(".contact-title"),
-    };
-
-    const hardModeTexts = {
-      heroTitle: 'VOCÊ ESTÁ<br><span class="hero-highlight">PRONTO</span>?',
-      heroDescription:
-        'Sistema bruto para academias que separam fracos de guerreiros.<br><strong class="hero-strong">SEM DESCULPAS. SEM DESCANSO. SÓ OS FORTES SOBREVIVEM.</strong>',
-      comeceAgoraBtn: "ENTRE SE TIVER CORAGEM",
-      vejaOsPlanosBtn: "ESCOLHA SUA ARMA",
-      featuresTitle:
-        'CONTROLE <span class="features-highlight">IMPLACÁVEL</span>',
-      ctaTitle:
-        'VOCÊ ESTÁ PRONTO OU <span class="cta-highlight">VAI CORRER</span>?',
-      ctaDesc: "ENTRE PARA A ELITE. MEDÍOCRES NÃO PASSAM DA PORTA.",
-      ctaButton: "VOLTAR PARA SAFEZONE",
-      institutionalText:
-        "De um simples teste de programação para um sistema que separa fracos de guerreiros.<br><strong>Criado para donos de academias que não aceitam moleza, nosso software é mais que uma ferramenta — é um campo de guerra digital.</strong>",
-      navHome: "Arena",
-      navSobre: "A Origem da Batalha",
-      navVersoes: "Escolha sua Arma",
-      navContato: "Fale com o Quartel",
-      aboutTitle:
-        'CONHEÇA A <span class="about-highlight">ORIGEM DA BATALHA</span>',
-      versionsTitle: 'ESCOLHA <span class="versions-highlight">SUA ARMA</span>',
-      contactTitle: 'FALE COM O <span class="contact-highlight">QUARTEL</span>',
-    };
-
-    const normalTexts = {
-      heroTitle: 'TREINO<br><span class="hero-highlight">HARDCORE</span>',
-      heroDescription:
-        'Sistema de controle de entrada para academias que levam o fitness a sério.<br><strong class="hero-strong">SEM FRESCURA. SEM LIMITES.</strong>',
-      comeceAgoraBtn: "COMECE AGORA",
-      vejaOsPlanosBtn: "VEJA OS PLANOS",
-      featuresTitle: 'CONTROLE <span class="features-highlight">TOTAL</span>',
-      ctaTitle: 'PRONTO PARA O <span class="cta-highlight">HARD MODE</span>?',
-      ctaDesc: "Junte-se às academias que não aceitam mediocridade.",
-      ctaButton: "ATIVAR HARD MODE",
-      institutionalText:
-        "Criado para donos de academias que querem controle, disciplina e segurança.<br><strong>Sem frescura. Sem enrolação. Apenas resultado.</strong>",
-      navHome: "Início",
-      navSobre: "Sobre",
-      navVersoes: "Versões",
-      navContato: "Contato",
-      aboutTitle:
-        'CONHEÇA O <span class="about-highlight">HARD MODE GYM</span>',
-      versionsTitle:
-        'ESCOLHA SUA <span class="versions-highlight">VERSÃO</span>',
-      contactTitle:
-        'FALE COM O <span class="contact-highlight">HARD MODE GYM</span>',
-    };
-
-    const texts = hardmodeActive ? hardModeTexts : normalTexts;
-    const elementsWithHTML = [
-      "heroTitle",
-      "heroDescription",
-      "featuresTitle",
-      "ctaTitle",
-      "institutionalText",
-      "aboutTitle",
-      "versionsTitle",
-      "contactTitle",
-    ];
-
-    for (const key in elements) {
-      if (elements[key] && texts[key]) {
-        if (elementsWithHTML.includes(key)) {
-          elements[key].innerHTML = texts[key];
-        } else {
-          elements[key].textContent = texts[key];
-        }
-      }
-    }
-  }
-
-  const savedTheme = localStorage.getItem("hardModeGymTheme");
-  if (savedTheme) currentTheme = savedTheme;
-  const savedHardmode = localStorage.getItem("hardModeActive");
-  if (savedHardmode === "true") hardmodeActive = true;
-
-  applyTheme(); // Aplica o tema e textos na inicialização
-
-  // =========================== //
-  // FUNCIONALIDADE DOS BOTÕES //
-  // =========================== //
-  // Adiciona o listener APENAS no botão específico do Hard Mode
-  const hardModeBtn = document.getElementById("hardModeBtn");
-  if (hardModeBtn) {
-    hardModeBtn.addEventListener("click", function () {
-      toggleHardmode();
-    });
-  }
-
-  // =========================== //
-  // LÓGICA DO MODAL DE EMAIL //
-  // =========================== //
-  if (comeceAgoraBtn)
-    comeceAgoraBtn.addEventListener("click", () =>
-      emailModal?.classList.add("show")
-    );
-  if (closeEmailModal)
-    closeEmailModal.addEventListener("click", () => {
-      emailModal?.classList.remove("show");
-      setTimeout(resetEmailForm, 300);
-    });
-  if (closeSuccessBtn)
-    closeSuccessBtn.addEventListener("click", () => {
-      emailModal?.classList.remove("show");
-      setTimeout(resetEmailForm, 300);
-    });
-  emailModal?.addEventListener("click", (e) => {
-    if (e.target === emailModal) {
-      emailModal.classList.remove("show");
-      setTimeout(resetEmailForm, 300);
-    }
-  });
-
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email)
-      ? { valid: true }
-      : { valid: false, message: "⚠️ Por favor, insira um email válido." };
-  }
-
-  if (emailForm) {
-    emailForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      const validation = validateEmail(email);
-
-      if (!validation.valid) {
-        emailInput?.classList.add("error");
-        if (emailError) emailError.textContent = validation.message;
-        return;
-      }
-
-      emailInput?.classList.remove("error");
-      if (emailError) emailError.textContent = "";
-
-      if (emailSubmitBtn) {
-        emailSubmitBtn.disabled = true;
-        emailSubmitBtn.textContent = "ENVIANDO...";
-      }
-
-      emailjs
-        .send("hardmode_gym_email_servi", "template_ozk73i2", { email: email })
-        .then(
-          () => {
-            formContainer?.classList.add("hidden");
-            if (successMessage) {
-              successMessage.classList.remove("hidden");
-              successMessage.style.display = "flex";
-            }
-          },
-          () => {
-            if (emailSubmitBtn) {
-              emailSubmitBtn.disabled = false;
-              emailSubmitBtn.textContent = "TENTAR NOVAMENTE";
-            }
-            if (emailError)
-              emailError.textContent = "❌ Falha ao enviar. Tente novamente.";
-          }
-        );
-    });
-  }
-
-  function resetEmailForm() {
-    formContainer?.classList.remove("hidden");
-    if (successMessage) {
-      successMessage.classList.add("hidden");
-      successMessage.style.display = "none";
-    }
-    if (emailForm) emailForm.reset();
-    if (emailError) emailError.textContent = "";
-    emailInput?.classList.remove("error");
-    if (emailSubmitBtn) {
-      emailSubmitBtn.disabled = false;
-      emailSubmitBtn.textContent = "CONFIRMAR";
-    }
-  }
-
-  if (vejaOsPlanosBtn)
-    vejaOsPlanosBtn.addEventListener("click", () => showSection("versoes"));
-
-  // =========================== //
-  // NAVEGAÇÃO ENTRE SEÇÕES //
-  // =========================== //
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const sectionId = this.getAttribute("data-section");
-      if (sectionId) showSection(sectionId);
-    });
-  });
-
-  // =========================== //
-  // ANIMAÇÕES DE ENTRADA AO ROLAR //
-  // =========================== //
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  document
-    .querySelectorAll(".reveal-on-scroll")
-    .forEach((el) => observer.observe(el));
-
-  // =========================== //
-  // MODAIS DE IMAGEM (MULTI-CARD) //
-  // =========================== //
-  document.querySelectorAll(".view-image-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetId = btn.getAttribute("data-modal");
-      if (targetId) openModalById(targetId);
-    });
-  });
-
-  document.querySelectorAll(".fullscreen-modal .modal-close").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const modal = btn.closest(".fullscreen-modal");
-      if (modal) closeModal(modal);
-    });
-  });
-
-  document.querySelectorAll(".fullscreen-modal").forEach((modal) => {
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal(modal);
-    });
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      document.querySelectorAll(".fullscreen-modal.active").forEach(closeModal);
-    }
-  });
-
-  // =========================== //
-  // CARDS INTERATIVOS (FLIP) //
-  // =========================== //
-  if (cards.length > 0) {
-    cards.forEach((card) => {
-      card.addEventListener("click", (e) => {
-        if (e.target.closest("a, button")) return;
-        const isFlipped = card.classList.contains("is-flipped");
-        cards.forEach((otherCard) => otherCard.classList.remove("is-flipped"));
-        if (!isFlipped) card.classList.add("is-flipped");
-      });
-    });
-  }
-
-  // =========================== //
-  // INICIALIZAÇÃO //
-  // =========================== //
-  // Define a seção inicial com base na classe 'active' do HTML
-  const initialSection =
-    document.querySelector(".page-section.active") ||
-    document.getElementById("home");
-  document
-    .querySelectorAll(".page-section")
-    .forEach((s) => s.classList.add("hidden")); // Garante que todas começam escondidas
-  initialSection.classList.remove("hidden");
-  initialSection.classList.add("active");
-
-  console.log("✅ HARD MODE GYM - Todos os sistemas operacionais");
-});
-
-// =========================== //
-// FUNÇÕES GLOBAIS DE MODAL //
-// =========================== //
-function openModalById(modalId) {
-  const modal = document.getElementById(modalId);
-  if (!modal) return;
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModal(modalEl) {
-  if (!modalEl) return;
-
-  // Adiciona a classe que ativa a animação de fade-out
-  modalEl.classList.add("closing");
-
-  // Espera a animação terminar (300ms) para realmente esconder o modal
-  setTimeout(() => {
-    modalEl.classList.remove("active");
-    modalEl.classList.remove("closing"); // Limpa a classe para a próxima vez
-    document.body.style.overflow = "";
-  }, 300);
-}
+</html>
